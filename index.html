@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cruise Booking</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:wght@400;500;700&display=swap"
+        rel="stylesheet">
+        <link rel="stylesheet" href="fontawesome-free-5.15.1-web/css/all.min.css">
+        <link rel="stylesheet" href="fontawesome-free-5.15.1-web/js/all.min.js">
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+    <!-- javascript link -->
+    <link rel="stylesheet" href="script.js">
+</head>
+
+<body>
+    <!--Header and Menu Section-->
+    <header class="container">
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">About Us</a></li>
+                <li><a href="#">Contact</a></li>
+                <li><a class="active" href="#">Sign Up</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!--Booking Section-->
+    <main class="main-content container">
+
+        <div class="booking-content">
+            <h1>Cruise Queen</h1>
+            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+        </div>
+
+
+        <div class="booking-form">
+            <h3>Book Ocean Time</h3>
+            <div class="input-group">
+                <label for="">Flying From</label>
+                <input class="inp-style" type="text" name="" placeholder="Dhaka, Bangladesh">
+            </div>
+            <div class="input-group">
+                <label for="">Flying To</label>
+                <input class="inp-style" type="text" name="" placeholder="New York, United States">
+            </div>
+            <div class="inputs">
+                <div class="input-group">
+                    <label" for="">Departure</label>
+                    <input class="inp-style" type="date" name="">
+                </div>
+                <div class="input-group">
+                    <label for="">Return</label>
+                    <input class="inp-style" type="date" name="">
+                </div>
+            </div>
+            <div class="input-group f-class">
+                <div>
+                    <label for="">First Class ($150)</label>
+                    <input id="ticket-count" class="inp-style inp-width" type="number" name="" value="0">
+                </div>
+                <div class="plus-minus-btn">
+                    <button  id="ticket-increase" ><i class="fas fa-plus"></i></button>
+                    <button id="ticket-decrease" ><i class="fas fa-minus"></i></button>
+                </div>
+            </div>
+            
+            <div class="input-group f-class">
+                <div>
+                    <label for="">Economy ($100)</label>
+                    <input id="ecoticket-count" class="inp-style inp-width" type="number" name="" value="0">
+                </div>
+                <div class="plus-minus-btn">
+                    <button id="ecoticket-increase" ><i class="fas fa-plus"></i></button>
+                    <button id="ecoticket-decrease" ><i class="fas fa-minus"></i></button>
+                </div>
+            </div>
+            <div class="calculations">
+                <div class="amount">
+                    <div class="left">
+                        <p>Subtotal</p>
+                    </div>
+                    <div class="right">
+                        <p id="subtotal" >$000</p>
+                    </div>
+                </div>
+
+                <div class="amount">
+                    <div class="left">
+                        <p>Charge 10% VAT</p>
+                    </div>
+                    <div class="right">
+                        <p id="total-tax" >$00</p>
+                    </div>
+                </div>
+                <hr>
+                <div class="amount">
+                    <div class="left">
+                        <h4>Total</h4>
+                    </div>
+                    <div class="right">
+                        <p id="total-Cost" >$000</p>
+                    </div>
+                </div>
+            </div>
+            <button onclick="bookingButton()" class="btn-style">Book Now</button>
+        </div>
+    </main>
+
+    <!--Thank You-->
+
+    <script>
+    document.getElementById('ticket-increase').addEventListener('click', function(){
+    tickets('ticket',true);
+    })
+    
+    document.getElementById('ticket-decrease').addEventListener('click', function(){
+    tickets('ticket',false);
+    })
+    document.getElementById('ecoticket-increase').addEventListener('click', function(){
+    tickets('ecoticket',true);
+    })
+    document.getElementById('ecoticket-decrease').addEventListener('click', function(){
+    tickets('ecoticket',false);
+    })
+
+    // Common functions for plus and minus buttons.
+    function tickets(ticket, isIncrease){
+    const ticketInput = document.getElementById(ticket +'-count');
+    const ticketCount = parseInt(ticketInput.value);
+    let newCount = ticketCount;
+    if(isIncrease == true){
+         newCount = ticketCount + 1;
+    }
+    if(isIncrease == false && ticketCount > 0){
+         newCount = ticketCount - 1;
+    }
+    ticketInput.value = newCount;
+    CalculateTotal();
+    }
+    // Subtotal Function
+    function CalculateTotal(){
+    const FTicket = getInputValue('ticket-count');
+    const ETicket = getInputValue('ecoticket-count');
+    console.log(ETicket);
+    const totalPrice = FTicket * 150 + ETicket * 100;
+    document.getElementById('subtotal').innerText = '$' + totalPrice;
+    
+    // Total Tax Function
+     const totalTax =Math.round(totalPrice * 0.1);
+     document.getElementById('total-tax').innerText= '$' + totalTax;
+    // Total Cost Function
+     const totalCost = totalPrice + totalTax;
+     document.getElementById('total-Cost').innerText= '$'+ totalCost;
+    }
+    // Common Function used for parsing Input Values
+    function getInputValue (ticket){
+    const Price = document.getElementById(ticket);
+        const TicketPrice =parseInt(Price.value);
+        return TicketPrice;
+}
+    function bookingButton(){
+    alert("Booking Confirmed");
+}
+    </script>
+</body>
+
+</html>
